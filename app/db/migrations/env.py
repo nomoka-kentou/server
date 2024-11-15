@@ -5,9 +5,27 @@ from sqlalchemy import pool
 
 from alembic import context
 
+import os
+import sqlalchemy_utils
+import models
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
+
+# Settings for database connection.
+DB_USER = os.environ.get("MYSQL_USER")
+DB_PASSWORD = os.environ.get("MYSQL_PASSWORD")
+DB_HOST = os.environ.get("MYSQL_HOST")
+DB_NAME = os.environ.get("MYSQL_DATABASE")
+
+DATABASE = "mysql://%s:%s@%s/%s?charset=utf8" % (
+    DB_USER,
+    DB_PASSWORD,
+    DB_HOST,
+    DB_NAME,
+)
+config.set_main_option("sqlalchemy.url", DATABASE)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
