@@ -1,26 +1,25 @@
-version: "3.9"
+version: '3.9'
 
 services:
   app:
     build: .
     container_name: nomoka_server
     ports:
-      - "8000:8000"
+      - '8000:8000'
     depends_on:
       - db
+    env_file:
+      - .env
 
   db:
     image: mysql:8.0
     container_name: nomoka_db
-    environment:
-      MYSQL_ROOT_PASSWORD: kentou1234
-      MYSQL_DATABASE: nomoka
-      MYSQL_USER: nomoka_user
-      MYSQL_PASSWORD: kentou1234
     ports:
-      - "3306:3306"
+      - '3306:3306'
     volumes:
       - mysql_data:/var/lib/mysql
+    env_file:
+      - .env
 
 volumes:
   mysql_data:
